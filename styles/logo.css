@@ -1,0 +1,106 @@
+.logo_container {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+}
+.circle {
+  width: 17%;
+  height: 17%;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+.polygon_w{
+  width: 10%;
+  height: 25%;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+}
+.polygon_w.right{
+
+  margin-left: 50%;
+}
+.polygon_w.left{
+  margin-left: -50%;
+}
+
+.cube {
+  width: 10%;
+  height: 10%;
+  background-color: black;
+  position: absolute;
+  z-index: 1;
+}
+.cube.right{
+  margin-top: 70%;
+  margin-left: 75%;
+}
+.cube.left{
+  margin-top: 70%;
+  margin-left: -72%;
+}
+.polygon {
+  width: 40%;
+  height: 7%;
+  margin-top: 78%;
+  background-color: black;
+  position: absolute;
+  z-index: 1;
+}
+.circle_triangle {
+  width: 17%;
+  height: 17%;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 15%;
+}
+.x-shape {
+  position: absolute;
+  width: 80%;
+  height: 30%;
+  margin-top: 50%;
+  background-color: white;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: -1;
+}
+
+.top{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin-left: -20%;
+  margin-top: -20%;
+  transform: rotate(180deg); /* Поворот на 180 градусов */
+}
+.top > .cube.left {
+  margin-left: 0%;
+}
+.top > .cube.right {
+  margin-left: 72%;
+}
+.top > .polygon {
+  margin-left: 21%;
+  margin-top: 76%;
+}
+.top > .circle_triangle {
+  margin-left: 30%;
+  margin-top: 40%;
+}
+
+.left_x{
+  height: 100%;
+  width: 100%;
+  transform: rotate(90deg);
+}
+
+
+
+

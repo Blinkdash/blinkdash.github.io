@@ -1,0 +1,177 @@
+.flex_container {
+  margin-top: 10%;
+  margin-left: 45%;
+  margin-bottom: 10%;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  background: oldlace;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+.first_letter{
+  position: absolute;
+  align-self: flex-start;
+  offset-path: path("M 50 50 L -20,110");
+  height: 50%;
+  width: 50%;
+  margin-left: 20%;
+  margin-top: -20%;
+  offset-rotate: 0deg;
+}
+#text1{
+  fill: rgb(0, 0, 0, .3);
+  font-family: 'Century Schoolbook';
+  font-size: 90px;
+}
+.g_circle {
+  offset-path: path("M6 73 L6,69 L 13,69 Q 14,69 15,67 L15, 13 Q 14,12 13,12 L 6,12 L 6,7 L 57,7 L 57, 31 L 54,31 Q 55, 19 43,12 L 26,12 Q 25,13 25, 14 L 25,67 Q 25,68 27,69 L 37,69 L 37,73 Z");
+  opacity: 0;
+  animation: none;
+  animation-duration: 4s;
+}
+
+.second_letter{
+  align-self: flex-end;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  offset-path: path("M 60 60 L40 -80");
+  margin-top: 20%;
+  margin-right: 10%;
+  offset-rotate: 0deg;
+}
+#text2{
+  fill: rgb(105,103,103);
+  font-family: 'Century Schoolbook';
+  font-size: 75px;
+}
+.d_circle {
+  offset-path: path("M10 76 L10,59 Q 28,58 28, 19 Q 28,12 20, 10 L 20,7 L 67, 7 L 67, 11 L 62,11 Q 60,12 60, 13 L 60, 55 Q 60,58 65,59 L 67, 59 L 67, 76 L 63,76 Q 61,64 50, 63 L 25,63 Q 15,64 13,76 Z");
+  opacity: 0;
+  animation: none;
+  animation-duration: 5s;
+}
+
+.image_container {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 70%;
+  height: 70%;
+  opacity: 0;
+}
+
+.image_container .text {
+  font-family: 'Century Schoolbook';
+  position: absolute;
+  font-size: 15px;
+  margin-top: -20%;
+  color: white;
+  z-index: 1;
+}
+
+.image_container video {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: fill;
+}
+
+@keyframes moveCircle {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.flex_container:hover #circle {
+  opacity: 1;
+  animation-name: moveCircle;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes disappear{
+  0% {
+    opacity: 1;
+    height: 50%;
+    width: 50%;
+  }
+  100% {
+    height: 15%;
+    width: 15%;
+    opacity: 0.4;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes move{
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+@keyframes move{
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+@keyframes shake {
+   0%, 100% {
+     transform: translateX(0);
+   }
+   10%, 30%, 50%, 70%, 90% {
+     transform: translateX(-2px);
+   }
+   20%, 40%, 60%, 80% {
+     transform: translateX(2px);
+   }
+ }
+
+.flex_container:focus .image_container{
+  animation: appear 3s 2.5s forwards;
+}
+.flex_container:focus .first_letter{
+  animation: move 2s forwards, disappear 3s  forwards;
+}
+.flex_container:focus .second_letter{
+  animation: move 2s forwards, disappear 2s  forwards;
+}
+.flex_container:focus {
+  animation: shake 2s 5s forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+
+
+
+
+
+
+
+
+
