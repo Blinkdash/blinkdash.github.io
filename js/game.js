@@ -645,7 +645,7 @@ class Game {
                     <p>Общее время: ${totalTime} сек</p>
                 </div>
                 <div class="game-controls">
-                    <button class="next-level-btn view-results">Посмотреть езультаты</button>
+                    <button class="next-level-btn view-results">Посмотреть результаты</button>
                     <button class="next-level-btn change-difficulty">Выбрать другую сложность</button>
                 </div>
             </div>
