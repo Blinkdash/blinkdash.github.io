@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figure Quest - Рейтинг</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rating.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="game.html">Игра</a></li>
+                <li><a href="rating.html">Рейтинг</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="rating-container">
+            <h1>Рейтинг игроков</h1>
+            <div class="rating-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Место</th>
+                            <th>Имя</th>
+                            <th>Очки</th>
+                            <th>Сложность</th>
+                            <th>Время</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ratingsList"></tbody>
+                </table>
+            </div>
+            <div class="rating-controls">
+                <button id="playAgain">Играть снова</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Figure Quest</p>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/rating.js"></script>
+</body>
+</html> 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра - Найди фигуру</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="game.html">Игра</a></li>
+                <li><a href="rating.html">Рейтинг</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="game-container">
+            <div class="game-info">
+                <div class="player-info">
+                    <span>Игрок: <span id="playerName"></span></span>
+                    <span>Уровень: <span id="currentLevel"></span></span>
+                    <span>Очки: <span id="score">0</span></span>
+                </div>
+                <div class="timer">Время: <span id="time">60</span></div>
+            </div>
+
+            <div class="game-task">
+                <h2 id="taskDescription"></h2>
+            </div>
+
+            <div class="game-field"></div>
+
+            <div class="game-controls">
+                <button id="exitGame">Завершить игру</button>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Figure Quest</p>
+    </footer>
+
+    <script src="js/levels.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html> 

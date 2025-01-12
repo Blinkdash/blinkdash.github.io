@@ -1,0 +1,684 @@
+/* Основной контейнер игры */
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transform: scale(0.75);
+    transform-origin: top center;
+}
+
+/* Информационная панель (имя, уровень, очки) */
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+    color: white;
+    position: relative;
+}
+
+/* Таймер с пульсацией */
+.timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* Описание текущего задания */
+.game-task {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.game-task h2 {
+    color: #1e293b;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Игровое поле и карточки */
+.game-field {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 25px;
+    min-height: 350px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.game-item {
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+}
+
+.game-item.correct {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.9);
+    border: 3px solid #10b981;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.game-item.wrong {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Прогресс-бар уровня */
+.level-progress {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.progress-text {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #6366f1, #4f46e5);
+    width: 0;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* Стили для перевернутых карточек */
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 2.5em;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    transform: rotateY(180deg);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-back::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.1) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 20px 20px;
+    animation: movePattern 3s linear infinite;
+}
+
+.card-back::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transform: rotate(45deg) translate(-50%, -50%);
+    animation: shine 2s infinite;
+}
+
+@keyframes movePattern {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-20px, -20px);
+    }
+}
+
+@keyframes shine {
+    0% {
+        transform: rotate(45deg) translate(-150%, -150%);
+    }
+    100% {
+        transform: rotate(45deg) translate(150%, 150%);
+    }
+}
+
+.game-item::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(99, 102, 241, 0.1) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.game-item:hover::after {
+    opacity: 1;
+}
+
+/* Окно завершения уровня */
+.level-complete-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.level-complete-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.level-complete-content h2 {
+    color: #1e293b;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.level-stats {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    color: #64748b;
+}
+
+.level-stats p {
+    margin: 0.5rem 0;
+}
+
+.game-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.game-controls button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    color: white;
+    min-width: 180px;
+}
+
+.next-level-btn.view-results {
+    background: linear-gradient(45deg, #6366f1, #4f46e5);
+}
+
+.next-level-btn.change-difficulty {
+    background: linear-gradient(45deg, #10b981, #059669);
+}
+
+.game-controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Кнопка завершения игры */
+#exitGame {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#exitGame:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+    .game-controls {
+        flex-direction: column;
+    }
+    
+    .game-controls button {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* Стили для цветных фигур */
+.card-front {
+    font-size: 2.5em;
+}
+
+[data-color="красные"] .card-front {
+    color: #ef4444;
+}
+
+[data-color="синие"] .card-front {
+    color: #3b82f6;
+}
+
+[data-color="зеленые"] .card-front {
+    color: #22c55e;
+}
+
+[data-color="желтые"] .card-front {
+    color: #eab308;
+}
+
+/* Стили для кнопки следующего уровня */
+.next-level-btn {
+    background: linear-gradient(45deg, #6366f1, #4f46e5);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+    min-width: 200px;
+}
+
+.next-level-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+    background: linear-gradient(45deg, #4f46e5, #4338ca);
+}
+
+.next-level-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Анимация для кнопки */
+@keyframes buttonGlow {
+    0% {
+        box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+    }
+    100% {
+        box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+    }
+}
+
+.next-level-btn {
+    animation: buttonGlow 2s infinite;
+}
+
+/* Стили для окна завершения уровня */
+.level-complete-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.level-stats {
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+.level-stats p {
+    margin: 0.5rem 0;
+}
+
+/* Стили для таймера обратного отсчета */
+.countdown {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: pulseLight 2s infinite;
+    min-width: 150px;
+}
+
+@keyframes pulseLight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px 0px rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Стили для движущихся животных */
+.moving-animal {
+    position: absolute;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: transform 0.2s;
+    user-select: none;
+    z-index: 2;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.moving-animal:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.moving-animal.caught {
+    pointer-events: none;
+    animation: catch 0.5s forwards;
+}
+
+@keyframes catch {
+    0% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Добавляем стиль для игрового поля в режиме ловли */
+.game-field {
+    position: relative;
+    min-height: 400px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Стили для перетаскивания */
+.fruits-zone {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.baskets-zone {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.draggable {
+    cursor: grab;
+    font-size: 2em;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+}
+
+.basket-target {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}
+
+.basket-target.drag-over {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+}
+
+/* Стили для клавиатурного уровня */
+.sequence-display {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.key-element {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #6366f1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    background: white;
+    transition: all 0.3s;
+}
+
+.key-element.correct {
+    background: #10b981;
+    color: white;
+    border-color: #059669;
+}
+
+.sequence-display.hidden .key-element {
+    background: #6366f1;
+    color: transparent;
+}
+
+/* Стили для игрового поля с движущимися животными */
+.game-field {
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+/* Обновленные стили для движущихся животных */
+.moving-animal {
+    position: absolute;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: transform 0.2s;
+    user-select: none;
+    z-index: 2;
+}
+
+/* Обновленные стили для зон перетаскивания */
+.fruits-zone, .baskets-zone {
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.basket-target {
+    min-height: 120px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Добавляем стили для тестовой кнопки */
+#testModeButton {
+    background: linear-gradient(45deg, #6366f1, #4f46e5);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+}
+
+#testModeButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+#testModeButton.active {
+    background: linear-gradient(45deg, #34d399, #10b981);
+}
+
+#levelSelect {
+    padding: 0.8rem 1.5rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    border: 2px solid #6366f1;
+    cursor: pointer;
+    background: white;
+    color: #1e293b;
+    min-width: 150px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236366f1' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+}
+
+#levelSelect:focus {
+    outline: none;
+    border-color: #34d399;
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+}
+
+#levelSelect option {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Анимация свечения для правильных карточек */
+@keyframes glow {
+    from {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
+    }
+    to {
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.9);
+    }
+}
